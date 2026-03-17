@@ -20,7 +20,11 @@ class GildedRose(object):
             if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
                 if item.quality > 0:
                     if item.name != "Sulfuras, Hand of Ragnaros":
-                        item.quality = item.quality - 1
+                        # Determine how much to degrade
+                        degrade = 1
+                    if "Conjured" in item.name:
+                        degrade = 2
+                    item.quality = max(0, item.quality - degrade)
             else:
                 if item.quality < 50:
                     item.quality = item.quality + 1
@@ -38,7 +42,11 @@ class GildedRose(object):
                     if item.name != "Backstage passes to a TAFKAL80ETC concert":
                         if item.quality > 0:
                             if item.name != "Sulfuras, Hand of Ragnaros":
-                                item.quality = item.quality - 1
+                                # same degrade logic as above
+                                    degrade = 1
+                                    if "Conjured" in item.name:
+                                        degrade = 2
+                                    item.quality = max(0, item.quality - degrade)
                     else:
                         item.quality = item.quality - item.quality
                 else:
